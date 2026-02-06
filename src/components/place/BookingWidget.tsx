@@ -288,62 +288,63 @@ export function BookingWidget() {
             {/* Confirmation Modal Overlay - Moved outside for global positioning */}
             <AnimatePresence>
                 {showConfirmation && (
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+                    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 sm:p-6 pt-[8vh] sm:pt-[12vh] overflow-hidden">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setShowConfirmation(false)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                            className="absolute inset-0 bg-black/85 backdrop-blur-md"
                         />
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            initial={{ opacity: 0, scale: 0.95, y: -20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 400 }}
-                            className="relative w-full max-w-[480px] max-h-[90vh] bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col"
+                            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                            transition={{ type: "spring", damping: 30, stiffness: 450 }}
+                            className="relative w-full max-w-[460px] max-h-[80vh] bg-white rounded-[40px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col border border-white/20"
                         >
                             {/* Scrollable Content Container */}
                             <div className="flex-1 overflow-y-auto p-8 sm:p-10 custom-scrollbar">
                                 {/* Inner Glow Decorative */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-tikipal-orange/5 via-transparent to-transparent pointer-events-none" />
+                                <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-tikipal-orange/10 to-transparent pointer-events-none" />
 
                                 <div className="relative z-10 text-center">
-                                    {/* Decorative Icon */}
-                                    <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-tikipal-orange/10 flex items-center justify-center mb-6 sm:mb-8 border border-tikipal-orange/20 shadow-inner">
-                                        <ShieldCheck className="text-tikipal-orange" size={32} strokeWidth={1.5} />
+                                    {/* Decorative Icon - More compact */}
+                                    <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 rounded-[24px] bg-tikipal-orange/10 flex items-center justify-center mb-6 border border-tikipal-orange/20 shadow-inner">
+                                        <ShieldCheck className="text-tikipal-orange" size={28} strokeWidth={1.5} />
                                     </div>
 
-                                    <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-4 text-center">
-                                        <h3 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight leading-none uppercase">
-                                            Aviso de Admisión
+                                    <div className="space-y-4 mb-4 text-center">
+                                        <h3 className="text-[22px] font-black text-gray-900 tracking-tighter leading-none uppercase">
+                                            Aviso de Selección
                                         </h3>
-                                        <p className="text-[14px] sm:text-[15px] text-gray-600 font-medium leading-[1.6]">
-                                            ¡Gracias por elegirnos! Nos enorgullece ofrecer una experiencia única a nuestros clientes y para lograrlo, nos reservamos el derecho de admisión y permanencia en el sitio.
+                                        <div className="w-12 h-1 bg-tikipal-orange/20 mx-auto rounded-full" />
+                                        <p className="text-[14px] text-gray-600 font-medium leading-[1.6]">
+                                            ¡Excelente elección! Para garantizar la mejor experiencia, es importante recordar que el establecimiento se reserva el <b>derecho de admisión y permanencia</b>.
                                         </p>
-                                        <p className="text-[14px] sm:text-[15px] text-gray-600 font-medium leading-[1.6] pb-4">
-                                            Por favor, asegúrate de cumplir con nuestro código de vestimenta antes de ingresar.
+                                        <p className="text-[14px] text-gray-600 font-medium leading-[1.6] pb-2">
+                                            Asegúrate de revisar el código de vestimenta y llegar a tiempo para tu reserva.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Sticky Footer for Buttons */}
-                            <div className="p-6 sm:p-8 bg-gray-50/50 border-t border-gray-100 grid grid-cols-2 gap-3 sm:gap-4 relative z-20">
+                            {/* Sticky Footer for Buttons - Even more compact */}
+                            <div className="p-6 sm:px-8 sm:pb-8 bg-gray-50/80 backdrop-blur-md border-t border-gray-100 grid grid-cols-2 gap-3 relative z-20">
                                 <button
                                     onClick={() => setShowConfirmation(false)}
-                                    className="h-14 rounded-2xl border border-gray-200 bg-white text-gray-600 font-bold text-[14px] hover:bg-gray-50 transition-colors active:scale-95"
+                                    className="h-14 rounded-2xl border border-gray-200 bg-white text-gray-500 font-bold text-[14px] hover:bg-gray-50 transition-colors active:scale-95"
                                 >
-                                    Cancelar
+                                    Volver
                                 </button>
                                 <button
                                     onClick={() => {
                                         setShowConfirmation(false);
                                         window.location.href = "/checkout";
                                     }}
-                                    className="h-14 rounded-2xl bg-tikipal-orange text-white font-bold text-[14px] shadow-lg shadow-tikipal-orange/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                    className="h-14 rounded-2xl bg-tikipal-orange text-white font-bold text-[14px] shadow-[0_12px_24px_-6px_rgba(255,107,38,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
-                                    Continuar
+                                    Entendido
                                 </button>
                             </div>
                         </motion.div>
