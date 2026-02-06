@@ -47,7 +47,7 @@ export function Header() {
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
                     {/* Left: Logo & City */}
                     <div className="flex items-center gap-3 sm:gap-4">
-                        <Link href="/explore" className="flex items-center gap-3 sm:gap-4 group cursor-pointer">
+                        <Link href="/bogota" className="flex items-center gap-3 sm:gap-4 group cursor-pointer">
                             {/* Logo Image */}
                             <div className="flex items-center">
                                 <img

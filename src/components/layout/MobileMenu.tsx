@@ -90,13 +90,13 @@ export function MobileMenu({ isOpen, onClose, isLoggedIn = false }: MobileMenuPr
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between p-8 border-b border-gray-100/50">
-                            <div className="flex items-center gap-2 opacity-90">
+                            <Link href="/bogota" onClick={onClose} className="flex items-center gap-2 opacity-90 cursor-pointer hover:scale-105 transition-transform">
                                 <img
                                     src="/brand/logo-orange-text.png"
                                     alt="tikipal"
                                     className="h-8 w-auto object-contain"
                                 />
-                            </div>
+                            </Link>
                             <button
                                 onClick={onClose}
                                 className="w-10 h-10 rounded-full bg-white/40 hover:bg-white/80 flex items-center justify-center transition-all duration-300 text-gray-500 backdrop-blur-md border border-white/20"
