@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Info, ChevronDown, ChevronLeft, ChevronRight, X, Phone, User, Mail, ShieldCheck } from "lucide-react";
 
