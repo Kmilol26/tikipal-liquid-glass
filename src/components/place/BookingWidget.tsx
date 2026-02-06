@@ -285,55 +285,55 @@ export function BookingWidget() {
                 </div>
             </div>
 
-            {/* Confirmation Modal Overlay - Centered but nudged up to clear OS docks */}
+            {/* Confirmation Modal Overlay - Anchored to Eye-Level (Upper Third) */}
             <AnimatePresence>
                 {showConfirmation && (
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+                    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 sm:p-6 pt-[10vh] sm:pt-[15vh] overflow-hidden">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setShowConfirmation(false)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                            className="absolute inset-0 bg-black/85 backdrop-blur-md"
                         />
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            initial={{ opacity: 0, scale: 0.95, y: -20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 350 }}
-                            className="relative w-full max-w-[420px] max-h-[70vh] bg-white rounded-[40px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col border border-white/20 -translate-y-12"
+                            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 400 }}
+                            className="relative w-full max-w-[440px] max-h-[75vh] bg-white rounded-[40px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7)] overflow-hidden flex flex-col border border-white/20"
                         >
                             {/* Scrollable Content Container */}
-                            <div className="flex-1 overflow-y-auto p-6 sm:p-10 custom-scrollbar">
+                            <div className="flex-1 overflow-y-auto p-8 sm:p-12 custom-scrollbar">
                                 {/* Inner Glow Decorative */}
-                                <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-tikipal-orange/5 to-transparent pointer-events-none" />
+                                <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-tikipal-orange/5 to-transparent pointer-events-none" />
 
                                 <div className="relative z-10 text-center">
-                                    {/* Decorative Icon - Ultra Small */}
-                                    <div className="mx-auto w-12 h-12 sm:w-14 sm:h-14 rounded-[20px] bg-tikipal-orange/10 flex items-center justify-center mb-6 border border-tikipal-orange/20">
-                                        <ShieldCheck className="text-tikipal-orange" size={24} strokeWidth={2} />
+                                    {/* Decorative Icon */}
+                                    <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 rounded-[24px] bg-tikipal-orange/10 flex items-center justify-center mb-8 border border-tikipal-orange/20 shadow-inner">
+                                        <ShieldCheck className="text-tikipal-orange" size={28} strokeWidth={1.5} />
                                     </div>
 
-                                    <div className="space-y-3 mb-2 text-center">
-                                        <h3 className="text-[20px] sm:text-[22px] font-black text-gray-900 tracking-tighter leading-none uppercase">
+                                    <div className="space-y-4 mb-6 text-center">
+                                        <h3 className="text-[22px] sm:text-[24px] font-black text-gray-900 tracking-tighter leading-none uppercase">
                                             Aviso de Admisión
                                         </h3>
-                                        <div className="w-10 h-1 bg-tikipal-orange/30 mx-auto rounded-full" />
-                                        <p className="text-[13px] sm:text-[14px] text-gray-600 font-medium leading-[1.6]">
-                                            ¡Gracias por elegirnos! El establecimiento se reserva el <b>derecho de admisión y permanencia</b>.
+                                        <div className="w-12 h-1 bg-tikipal-orange/30 mx-auto rounded-full" />
+                                        <p className="text-[14px] sm:text-[15px] text-gray-600 font-medium leading-[1.6]">
+                                            ¡Gracias por elegirnos! Para garantizar una experiencia única, el establecimiento se reserva el <b>derecho de admisión and permanencia</b>.
                                         </p>
-                                        <p className="text-[12px] sm:text-[13px] text-gray-500 font-normal leading-[1.6]">
-                                            Asegúrate de cumplir con el código de vestimenta.
+                                        <p className="text-[13px] sm:text-[14px] text-gray-500 font-normal leading-[1.6] pb-2">
+                                            Por favor, asegúrate de cumplir con el código de vestimenta del sitio.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Sticky Footer for Buttons - Ultra Compact */}
-                            <div className="p-6 sm:px-8 sm:pb-8 bg-gray-50/90 backdrop-blur-md border-t border-gray-100 grid grid-cols-2 gap-3 relative z-20">
+                            {/* Sticky Footer for Buttons */}
+                            <div className="p-8 sm:px-10 sm:pb-10 bg-gray-50/95 backdrop-blur-md border-t border-gray-100 grid grid-cols-2 gap-4 relative z-20">
                                 <button
                                     onClick={() => setShowConfirmation(false)}
-                                    className="h-12 rounded-2xl border border-gray-200 bg-white text-gray-500 font-bold text-[13px] hover:bg-gray-50 transition-colors active:scale-95"
+                                    className="h-14 rounded-[22px] border border-gray-200 bg-white text-gray-500 font-bold text-[14px] hover:bg-gray-50 transition-colors active:scale-95"
                                 >
                                     Volver
                                 </button>
@@ -342,7 +342,7 @@ export function BookingWidget() {
                                         setShowConfirmation(false);
                                         window.location.href = "/checkout";
                                     }}
-                                    className="h-12 rounded-2xl bg-tikipal-orange text-white font-bold text-[13px] shadow-[0_10px_20px_-5px_rgba(255,107,38,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                    className="h-14 rounded-[22px] bg-tikipal-orange text-white font-bold text-[14px] shadow-[0_15px_30px_-5px_rgba(255,107,38,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
                                     Entendido
                                 </button>
