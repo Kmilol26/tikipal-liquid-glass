@@ -113,6 +113,18 @@ export function BookingWidget() {
         return `${d} ${m}`;
     };
 
+    // Prevent scrolling when confirmation modal is open
+    useEffect(() => {
+        if (showConfirmation) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [showConfirmation]);
+
     return (
         <>
             <div className="sticky top-28 group/widget transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]">
@@ -276,56 +288,63 @@ export function BookingWidget() {
             {/* Confirmation Modal Overlay - Moved outside for global positioning */}
             <AnimatePresence>
                 {showConfirmation && (
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6">
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setShowConfirmation(false)}
-                            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
                         />
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                            className="relative w-full max-w-[500px] bg-white rounded-[40px] p-8 sm:p-10 shadow-2xl overflow-hidden"
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 400 }}
+                            className="relative w-full max-w-[480px] max-h-[90vh] bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col"
                         >
-                            {/* Inner Glow Decorative */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-tikipal-orange/5 via-transparent to-transparent pointer-events-none" />
+                            {/* Scrollable Content Container */}
+                            <div className="flex-1 overflow-y-auto p-8 sm:p-10 custom-scrollbar">
+                                {/* Inner Glow Decorative */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-tikipal-orange/5 via-transparent to-transparent pointer-events-none" />
 
-                            <div className="relative z-10 text-center">
-                                {/* Decorative Icon */}
-                                <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-tikipal-orange/10 flex items-center justify-center mb-6 sm:mb-8 border border-tikipal-orange/20">
-                                    <ShieldCheck className="text-tikipal-orange" size={32} sm-size={40} strokeWidth={1.5} />
-                                </div>
+                                <div className="relative z-10 text-center">
+                                    {/* Decorative Icon */}
+                                    <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-tikipal-orange/10 flex items-center justify-center mb-6 sm:mb-8 border border-tikipal-orange/20 shadow-inner">
+                                        <ShieldCheck className="text-tikipal-orange" size={32} strokeWidth={1.5} />
+                                    </div>
 
-                                <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-10 text-left sm:text-center">
-                                    <p className="text-[14px] sm:text-[15px] text-gray-700 font-medium leading-[1.6]">
-                                        ¡Gracias por elegirnos! Nos enorgullece ofrecer una experiencia única a nuestros clientes y para lograrlo, nos reservamos el derecho de admisión y permanencia en el sitio.
-                                    </p>
-                                    <p className="text-[14px] sm:text-[15px] text-gray-700 font-medium leading-[1.6]">
-                                        Por favor, asegúrate de cumplir con nuestro código de vestimenta antes de ingresar.
-                                    </p>
+                                    <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-4 text-center">
+                                        <h3 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight leading-none uppercase">
+                                            Aviso de Admisión
+                                        </h3>
+                                        <p className="text-[14px] sm:text-[15px] text-gray-600 font-medium leading-[1.6]">
+                                            ¡Gracias por elegirnos! Nos enorgullece ofrecer una experiencia única a nuestros clientes y para lograrlo, nos reservamos el derecho de admisión y permanencia en el sitio.
+                                        </p>
+                                        <p className="text-[14px] sm:text-[15px] text-gray-600 font-medium leading-[1.6] pb-4">
+                                            Por favor, asegúrate de cumplir con nuestro código de vestimenta antes de ingresar.
+                                        </p>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                                    <button
-                                        onClick={() => setShowConfirmation(false)}
-                                        className="h-14 rounded-2xl border border-gray-200 text-gray-600 font-bold text-[14px] hover:bg-gray-50 transition-colors"
-                                    >
-                                        Cancelar
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            setShowConfirmation(false);
-                                            window.location.href = "/checkout";
-                                        }}
-                                        className="h-14 rounded-2xl bg-tikipal-orange text-white font-bold text-[14px] shadow-lg shadow-tikipal-orange/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
-                                    >
-                                        Continuar
-                                    </button>
-                                </div>
+                            {/* Sticky Footer for Buttons */}
+                            <div className="p-6 sm:p-8 bg-gray-50/50 border-t border-gray-100 grid grid-cols-2 gap-3 sm:gap-4 relative z-20">
+                                <button
+                                    onClick={() => setShowConfirmation(false)}
+                                    className="h-14 rounded-2xl border border-gray-200 bg-white text-gray-600 font-bold text-[14px] hover:bg-gray-50 transition-colors active:scale-95"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setShowConfirmation(false);
+                                        window.location.href = "/checkout";
+                                    }}
+                                    className="h-14 rounded-2xl bg-tikipal-orange text-white font-bold text-[14px] shadow-lg shadow-tikipal-orange/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                >
+                                    Continuar
+                                </button>
                             </div>
                         </motion.div>
                     </div>
