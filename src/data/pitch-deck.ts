@@ -4,9 +4,10 @@ export interface Slide {
     subtitle?: string;
     content: string[];
     accentText?: string;
-    type: "cover" | "text" | "grid" | "product" | "market" | "team";
+    type: "cover" | "text" | "grid" | "product" | "market" | "team" | "live-demo";
     background?: string;
     metrics?: { label: string; value: string; sublabel?: string }[];
+    componentName?: "PlaceCard" | "BookingWidget" | "TicketCard";
 }
 
 export const PITCH_DECK_CONTENT: Slide[] = [
@@ -48,26 +49,39 @@ export const PITCH_DECK_CONTENT: Slide[] = [
     },
     {
         id: "solution",
-        title: "Nuestra Solución",
-        subtitle: "Simplificando el Ticketing y la Gestión",
+        title: "Descubrimiento",
+        subtitle: "Curaduría y Estética en cada lugar",
         content: [
-            "Facilita la emisión de entradas digitales y análisis de datos en tiempo real.",
-            "Soporte para múltiples métodos de pago digital.",
-            "Ecosistema que conecta marcas y comercios con usuarios finales.",
-            "Acceso rápido y sin filas con boletería digital."
+            "Descubre los mejores spots de la ciudad con un diseño ultra-premium.",
+            "Filtros inteligentes por zona y categoría.",
+            "Información en tiempo real y favoritos de los usuarios."
         ],
-        type: "product"
+        componentName: "PlaceCard",
+        type: "live-demo"
     },
     {
-        id: "vision",
-        title: "Nuestra Visión",
-        subtitle: "Digitalizar la industria del entretenimiento",
+        id: "product",
+        title: "Boletería Digital",
+        subtitle: "Simplificando el Ticketing",
         content: [
-            "Vende fácil, conéctate con tu audiencia y haz crecer tu negocio desde un solo lugar.",
-            "Experiencia 'Liquid Glass' diseñada para el sector premium.",
-            "Automatización total desde la reserva hasta el ingreso."
+            "Facilita la emisión de entradas digitales y análisis en tiempo real.",
+            "Acceso rápido y sin filas con el Liquid Ticket.",
+            "Diseño de seguridad y estética inigualable."
         ],
-        type: "text"
+        componentName: "TicketCard",
+        type: "live-demo"
+    },
+    {
+        id: "booking",
+        title: "Reservas Instantáneas",
+        subtitle: "Zero Fricción, Máximo Impacto",
+        content: [
+            "Reserva tu mesa en segundos desde cualquier dispositivo.",
+            "Confirmación inmediata y flujo de pago integrado.",
+            "Experiencia 'Liquid Glass' en cada interacción."
+        ],
+        componentName: "BookingWidget",
+        type: "live-demo"
     },
     {
         id: "business",
@@ -88,7 +102,7 @@ export const PITCH_DECK_CONTENT: Slide[] = [
         content: [
             "Camilo A. - Fundador y Visión de Producto.",
             "Antigravity AI - Liderazgo Tecnológico.",
-            "Expertos en UI moderna, sistemas de alto rendimiento y crecimiento escalable."
+            "Expertos en UI moderna y sistemas escalables."
         ],
         type: "team"
     },
@@ -100,7 +114,7 @@ export const PITCH_DECK_CONTENT: Slide[] = [
         content: [
             "Lanzamiento de la beta V1 con venues estratégicos en Bogotá.",
             "Meta: 50,000 usuarios activos mensuales en el primer año.",
-            "Únete a la revolución del entretenimiento digital."
+            "Join us in redefining the premium digital landscape."
         ],
         type: "cover"
     }

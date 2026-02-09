@@ -4,6 +4,31 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Maximize2, X, Share2, Download } from "lucide-react";
 import { PITCH_DECK_CONTENT, Slide } from "@/data/pitch-deck";
+import { PlaceCard } from "@/components/PlaceCard";
+import { BookingWidget } from "@/components/place/BookingWidget";
+import { TicketCard } from "@/components/tickets/TicketCard";
+
+const MOCK_PLACE = {
+    id: "fabuloso",
+    title: "El Fabuloso Rooftop",
+    tags: "Restaurante · Barra Libre · Rooftop",
+    location: "Calle 85, Bogotá",
+    image: "/images/place/theatron/cover.png",
+    price: "150.000",
+    rating: 4.9,
+    isGuestFavorite: true
+};
+
+const MOCK_TICKET = {
+    id: "tk-882",
+    title: "Baum Festival 2026",
+    image: "/images/place/theatron/cover.png",
+    date: "23 MAY",
+    time: "10:00 PM",
+    location: "Corferias, Bogotá",
+    type: "VIP",
+    code: "TIKIPAL-PREMIUM-USER"
+};
 
 export function SlideController() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -33,6 +58,50 @@ export function SlideController() {
     }, [nextSlide, prevSlide]);
 
     const slide = PITCH_DECK_CONTENT[currentSlide];
+
+    const renderDynamicComponent = (name?: string) => {
+        switch (name) {
+            case "PlaceCard":
+                return (
+                    <motion.div
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        className="w-[320px] scale-110 drop-shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700"
+                    >
+                        <PlaceCard {...MOCK_PLACE} />
+                    </motion.div>
+                );
+            case "TicketCard":
+                return (
+                    <motion.div
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                        className="w-[300px] scale-125 drop-shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-700"
+                    >
+                        <TicketCard event={MOCK_TICKET} />
+                    </motion.div>
+                );
+            case "BookingWidget":
+                return (
+                    <div className="w-full max-w-[400px] h-[600px] scale-90 sm:scale-100 rounded-[48px] overflow-hidden border-[8px] border-gray-900 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] relative bg-[#fafafa]">
+                        {/* Status Bar Mock */}
+                        <div className="absolute top-0 inset-x-0 h-8 flex items-center justify-between px-8 z-50">
+                            <span className="text-[10px] font-bold">9:41</span>
+                            <div className="flex gap-1.5 items-center">
+                                <div className="w-4 h-2 bg-black rounded-sm" />
+                            </div>
+                        </div>
+                        <div className="pt-8 h-full overflow-y-auto custom-scrollbar bg-white">
+                            <BookingWidget />
+                        </div>
+                        {/* Home Indicator */}
+                        <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-200 rounded-full z-50" />
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
 
     return (
         <div className="fixed inset-0 bg-[#fafafa] text-gray-900 overflow-hidden flex flex-col font-light selection:bg-tikipal-orange/20">
@@ -137,6 +206,44 @@ export function SlideController() {
                             </div>
                         )}
 
+                        {slide.type === "live-demo" && (
+                            <div className="flex flex-col lg:flex-row gap-16 items-center w-full">
+                                <div className="flex-[0.8]">
+                                    <motion.div
+                                        initial={{ x: -20, opacity: 0 }}
+                                        animate={{ x: 0, opacity: 1 }}
+                                        className="mb-10"
+                                    >
+                                        <h2 className="text-5xl sm:text-7xl font-black mb-4 uppercase tracking-tighter italic text-gray-900">{slide.title}</h2>
+                                        <p className="text-2xl sm:text-4xl font-bold text-tikipal-orange uppercase tracking-tight">{slide.subtitle}</p>
+                                    </motion.div>
+                                    <div className="space-y-6">
+                                        {slide.content.map((item, idx) => (
+                                            <motion.div
+                                                key={idx}
+                                                initial={{ x: -20, opacity: 0 }}
+                                                animate={{ x: 0, opacity: 1 }}
+                                                transition={{ delay: 0.1 * idx + 0.4 }}
+                                                className="flex gap-6 items-start p-6 rounded-[28px] border border-gray-100 bg-white shadow-sm"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-tikipal-orange mt-2.5 shadow-[0_0_8px_rgba(255,107,38,0.5)]" />
+                                                <p className="text-lg sm:text-xl text-gray-500 leading-relaxed font-medium">{item}</p>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="flex-1 flex items-center justify-center p-4">
+                                    <motion.div
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ delay: 0.5, duration: 0.8 }}
+                                    >
+                                        {renderDynamicComponent(slide.componentName)}
+                                    </motion.div>
+                                </div>
+                            </div>
+                        )}
+
                         {slide.id === "market" && (
                             <div className="flex flex-col lg:flex-row gap-20 items-center">
                                 <div className="flex-1">
@@ -215,46 +322,6 @@ export function SlideController() {
                             </div>
                         )}
 
-                        {slide.type === "product" && (
-                            <div className="flex flex-col lg:flex-row gap-16 items-center">
-                                <div className="flex-1">
-                                    <motion.div
-                                        initial={{ x: -20, opacity: 0 }}
-                                        animate={{ x: 0, opacity: 1 }}
-                                        className="mb-10"
-                                    >
-                                        <h2 className="text-5xl sm:text-7xl font-black mb-4 uppercase tracking-tighter italic text-gray-900">{slide.title}</h2>
-                                        <p className="text-2xl sm:text-3xl font-medium text-tikipal-orange">{slide.subtitle}</p>
-                                    </motion.div>
-                                    <div className="space-y-6">
-                                        {slide.content.map((item, idx) => (
-                                            <motion.div
-                                                key={idx}
-                                                initial={{ x: -20, opacity: 0 }}
-                                                animate={{ x: 0, opacity: 1 }}
-                                                transition={{ delay: 0.1 * idx + 0.4 }}
-                                                className="flex gap-6 items-start p-6 rounded-[28px] border border-gray-100 bg-white/50"
-                                            >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-tikipal-orange mt-2.5" />
-                                                <p className="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">{item}</p>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="flex-1 w-full max-w-lg aspect-video relative rounded-[40px] overflow-hidden border border-gray-100 shadow-2xl bg-white">
-                                    <img src="/images/place/theatron/cover.png" className="w-full h-full object-cover opacity-20" />
-                                    <div className="absolute inset-0 flex items-center justify-center p-12">
-                                        <div className="w-full h-full rounded-[30px] border border-gray-100 bg-white/80 backdrop-blur-xl shadow-xl flex flex-col items-center justify-center p-8 gap-4">
-                                            <div className="w-16 h-16 rounded-3xl bg-tikipal-orange shadow-lg flex items-center justify-center text-white">
-                                                <Download size={24} />
-                                            </div>
-                                            <h4 className="font-black text-gray-900 uppercase">Interactive V0.1</h4>
-                                            <p className="text-gray-400 text-sm italic">Desliza para ver la demo en vivo</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
 
                         {slide.type === "team" && (
                             <div className="text-center max-w-4xl mx-auto">
