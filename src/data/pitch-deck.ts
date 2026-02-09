@@ -6,6 +6,7 @@ export interface Slide {
     accentText?: string;
     type: "cover" | "text" | "grid" | "product" | "market" | "team";
     background?: string;
+    metrics?: { label: string; value: string; sublabel?: string }[];
 }
 
 export const PITCH_DECK_CONTENT: Slide[] = [
@@ -13,111 +14,93 @@ export const PITCH_DECK_CONTENT: Slide[] = [
         id: "intro",
         title: "TIKIPAL",
         subtitle: "Nightlife Connectivity, Perfected.",
-        accentText: "THE FUTURE OF PREMIUM EXPERIENCES",
-        content: ["Redefining how LatAm's elite discovers and books the best moments."],
+        accentText: "LA PLATAFORMA QUE DIGITALIZA EL ENTRETENIMIENTO",
+        content: ["Conectando comercios y consumidores en tiempo real."],
         type: "cover"
     },
     {
         id: "problem",
-        title: "The Problem",
-        subtitle: "Fragmentation & Friction",
+        title: "El Problema",
+        subtitle: "La gestión de eventos y la administración en comercios es ineficiente.",
         content: [
-            "Reservations are stuck in WhatsApp (manual, slow, unreliable).",
-            "Lack of a centralized, premium discovery platform.",
-            "Opaque pricing and 'right of admission' uncertainty.",
-            "No digital ticket standard for high-end venues."
+            "Altos costos en recaudación: Comisiones por Datáfonos altas y sin datos útiles.",
+            "Comercios y Eventos: Sin herramientas para optimizar ventas y fidelizar clientes.",
+            "No hay plataformas: Falta de optimización en la experiencia del usuario y acceso poco eficiente.",
+            "Altos Costos en Publicidad: Sin datos de clientes recurrentes ni reservas garantizadas."
         ],
         type: "grid"
-    },
-    {
-        id: "solution",
-        title: "The Solution",
-        subtitle: "Seamless Liquid Experience",
-        content: [
-            "Curated discovery of the best spots in the city.",
-            "Instant booking with guaranteed admission logic.",
-            "Liquid Glass UX: A design language that feels as premium as the venues.",
-            "Unified digital identity for high-end nightlife."
-        ],
-        type: "grid"
-    },
-    {
-        id: "product",
-        title: "The Product",
-        subtitle: "Liquid UI for Liquid Moments",
-        content: [
-            "Ultra-glass aesthetics with real-time feedback.",
-            "Dynamic booking calendars and tier selection.",
-            "Liquid Tickets: Secure, beautiful, and scannable QR vouchers."
-        ],
-        type: "product"
     },
     {
         id: "market",
-        title: "Market Opportunity",
-        subtitle: "LatAm's Premium Sector is Untapped",
+        title: "Oportunidad de Mercado",
+        subtitle: "35% Crecimiento Anual en LatAm",
         content: [
-            "TAM: $25B+ LatAm Nightlife & Hospitality Market.",
-            "SAM: $2.4B focus on High-End Entertainment in major hubs.",
-            "Expanding from Bogotá to Mexico City, Miami, and Madrid."
+            "TAM: $20B USD - 1.5B transacciones (Oportunidad en LATAM).",
+            "SAM: $200M USD - 100,000 Comercios (Ventas diarias en Colombia).",
+            "SOM: $60M USD - SMBS (Compras semanales en Bogotá)."
+        ],
+        metrics: [
+            { label: "Cash", value: "70%", sublabel: "Alto potencial de digitalización" },
+            { label: "POS", value: "20%", sublabel: "Pagos digitales existentes" },
+            { label: "Otros", value: "10%", sublabel: "Pagos alternativos" }
         ],
         type: "market"
     },
     {
-        id: "business",
-        title: "Business Model",
-        subtitle: "Scalable Revenue Streams",
-        accentText: "PROFITABLE FROM DAY 1",
+        id: "solution",
+        title: "Nuestra Solución",
+        subtitle: "Simplificando el Ticketing y la Gestión",
         content: [
-            "Booking Commission: fee per successful reservation.",
-            "Venue SaaS: Premium tools for tables and guestlist management.",
-            "Partnerships: Exclusive brand activations within the platform."
+            "Facilita la emisión de entradas digitales y análisis de datos en tiempo real.",
+            "Soporte para múltiples métodos de pago digital.",
+            "Ecosistema que conecta marcas y comercios con usuarios finales.",
+            "Acceso rápido y sin filas con boletería digital."
+        ],
+        type: "product"
+    },
+    {
+        id: "vision",
+        title: "Nuestra Visión",
+        subtitle: "Digitalizar la industria del entretenimiento",
+        content: [
+            "Vende fácil, conéctate con tu audiencia y haz crecer tu negocio desde un solo lugar.",
+            "Experiencia 'Liquid Glass' diseñada para el sector premium.",
+            "Automatización total desde la reserva hasta el ingreso."
+        ],
+        type: "text"
+    },
+    {
+        id: "business",
+        title: "Modelo de Negocio",
+        subtitle: "Ingresos Escalables y Recurrentes",
+        accentText: "RENTABLE DESDE EL DÍA 1",
+        content: [
+            "Comisión por Reserva: fee por cada entrada emitida.",
+            "SaaS para Comercios: Herramientas premium de gestión y datos.",
+            "Publicidad Segmentada: Conexión directa marcas-consumidores."
         ],
         type: "grid"
     },
     {
-        id: "traction",
-        title: "Current Progress",
-        subtitle: "Built for Scale",
-        content: [
-            "Full React/Next.js stack with premium Framer Motion animations.",
-            "Scalable design system (Liquid Glass rollout complete).",
-            "Multi-language support (ES/EN) for global expansion.",
-            "Ready for high-traffic event launches."
-        ],
-        type: "text"
-    },
-    {
-        id: "why-now",
-        title: "Why Now?",
-        subtitle: "The Digital Shift",
-        content: [
-            "The post-delivery era: users want premium real-life experiences.",
-            "High-end venues are desperate for data and automation.",
-            "Mobile-first economy: users demand an 'Uber-like' ease for booking tables."
-        ],
-        type: "text"
-    },
-    {
         id: "team",
-        title: "The Team",
-        subtitle: "Engineering & Design Excellence",
+        title: "El Equipo",
+        subtitle: "Ingeniería y Visión de Producto",
         content: [
-            "Camilo A. - Founder & Product Visionary.",
-            "Antigravity AI - Engineering Lead.",
-            "Expertise in ultra-modern UI, high-performance systems, and scalable growth."
+            "Camilo A. - Fundador y Visión de Producto.",
+            "Antigravity AI - Liderazgo Tecnológico.",
+            "Expertos en UI moderna, sistemas de alto rendimiento y crecimiento escalable."
         ],
         type: "team"
     },
     {
         id: "ask",
-        title: "The Ask",
-        subtitle: "Scale the Experience",
-        accentText: "LET'S BUILD THE NEXT LATAM UNICORN",
+        title: "Próximos Pasos",
+        subtitle: "Escalando la Experiencia",
+        accentText: "CONSTRUYAMOS EL PRÓXIMO UNICORNIO LATAM",
         content: [
-            "We are seeking partners to launch the V1 beta across primary venues.",
-            "Goal: 50k active monthly users within the first 12 months.",
-            "Join us in redefining the premium digital landscape."
+            "Lanzamiento de la beta V1 con venues estratégicos en Bogotá.",
+            "Meta: 50,000 usuarios activos mensuales en el primer año.",
+            "Únete a la revolución del entretenimiento digital."
         ],
         type: "cover"
     }
